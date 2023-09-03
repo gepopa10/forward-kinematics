@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
+
 #include <cmath>
+#include <memory>
 
 #include "kinematics/forward_kinematics_solver.h"
 #include "kinematics/kinematic_chain_factory.h"
@@ -13,10 +15,10 @@ namespace kinematics
     {
     protected:
         kinematic_chain_factory _chain_factory;
-        kinematic_chain _chain;
+        std::shared_ptr<i_kinematic_chain> _chain;
         forward_kinematics_solver _fk_solver;
 
-        fk_GIVEN_kinematic_chain() : _chain(_chain_factory.create()), _fk_solver() {}
+        fk_GIVEN_kinematic_chain() : _fk_solver() { _chain = _chain_factory.create(); }
     };
 
     struct fk_GIVEN_case_1 : public fk_GIVEN_kinematic_chain
@@ -37,7 +39,7 @@ namespace kinematics
 
         fk_GIVEN_case_2()
         {
-            _chain.set_state(M_PI / 4, -M_PI / 2, -M_PI / 2, -M_PI / 2, 0.06);
+            _chain->set_state(M_PI / 4, -M_PI / 2, -M_PI / 2, -M_PI / 2, 0.06);
         }
     };
 
@@ -57,7 +59,7 @@ namespace kinematics
 
         fk_GIVEN_case_3()
         {
-            _chain.set_state(-M_PI / 4, M_PI / 2, -3 * M_PI / 4, M_PI / 4, 0);
+            _chain->set_state(-M_PI / 4, M_PI / 2, -3 * M_PI / 4, M_PI / 4, 0);
         }
     };
 
@@ -77,7 +79,7 @@ namespace kinematics
 
         fk_GIVEN_case_4()
         {
-            _chain.set_state(M_PI / 2, M_PI / 4, -M_PI / 6, 0, 0.05);
+            _chain->set_state(M_PI / 2, M_PI / 4, -M_PI / 6, 0, 0.05);
         }
     };
 
@@ -97,7 +99,7 @@ namespace kinematics
 
         fk_GIVEN_case_5()
         {
-            _chain.set_state(-M_PI / 4, 40 * M_PI / 180, 140 * M_PI / 180, 0, 0.05);
+            _chain->set_state(-M_PI / 4, 40 * M_PI / 180, 140 * M_PI / 180, 0, 0.05);
         }
     };
 

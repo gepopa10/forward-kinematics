@@ -1,6 +1,8 @@
 #pragma once
 
-#include "kinematics/kinematic_chain.h"
+#include <memory>
+
+#include "kinematics/i_kinematic_chain.h"
 #include "kinematics/point.h"
 
 namespace kinematics
@@ -9,6 +11,6 @@ namespace kinematics
     {
     public:
         forward_kinematics_solver() = default;
-        point compute_end_effector_position(const kinematic_chain &chain) const;
+        point compute_end_effector_position(std::shared_ptr<i_kinematic_chain> chain) const;
     };
 } // namespace kinematics

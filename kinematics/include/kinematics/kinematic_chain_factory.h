@@ -1,6 +1,8 @@
 #pragma once
 
-#include "kinematics/kinematic_chain.h"
+#include <memory>
+
+#include "kinematics/i_kinematic_chain.h"
 
 namespace kinematics
 {
@@ -8,6 +10,6 @@ namespace kinematics
     {
     public:
         kinematic_chain_factory() = default;
-        kinematic_chain create() const;
+        std::shared_ptr<i_kinematic_chain> create() const;
     };
 } // namespace kinematics

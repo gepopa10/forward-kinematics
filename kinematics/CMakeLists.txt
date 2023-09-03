@@ -10,7 +10,10 @@ set(KINEMATICS_SRC
 
 add_library(kinematics_lib ${KINEMATICS_SRC})
 
-target_include_directories(kinematics_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(kinematics_lib PUBLIC 
+${CMAKE_CURRENT_SOURCE_DIR}/include
+${CMAKE_CURRENT_SOURCE_DIR}/mock
+)
 
 add_subdirectory(functionaltests)
 add_subdirectory(unittests)

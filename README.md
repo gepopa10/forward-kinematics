@@ -9,3 +9,5 @@
 
 ## Run tests
 `ctest`
+
+![Components Diagram](./components_diagram.png)

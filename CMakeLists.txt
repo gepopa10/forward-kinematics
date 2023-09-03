@@ -5,7 +5,8 @@ enable_testing()
 project(forward_kinematics)
 
 add_subdirectory(kinematics)
+add_subdirectory(planner)
 
 add_executable(main_app main.cpp)
 
-target_link_libraries(main_app kinematics_lib)
+target_link_libraries(main_app kinematics_lib planner_lib)

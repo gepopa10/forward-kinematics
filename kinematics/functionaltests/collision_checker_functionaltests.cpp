@@ -1,7 +1,10 @@
 #include <gtest/gtest.h>
+
 #include <cmath>
+#include <memory>
 
 #include "kinematics/collision_checker.h"
+#include "kinematics/i_kinematic_chain.h"
 #include "kinematics/kinematic_chain_factory.h"
 
 namespace kinematics
@@ -10,10 +13,13 @@ namespace kinematics
     {
     protected:
         kinematic_chain_factory _chain_factory;
-        kinematic_chain _chain;
+        std::shared_ptr<i_kinematic_chain> _chain;
         collision_checker _collision_checker;
 
-        collision_checker_GIVEN_kinematic_chain() : _chain(_chain_factory.create()), _collision_checker() {}
+        collision_checker_GIVEN_kinematic_chain() : _collision_checker()
+        {
+            _chain = _chain_factory.create();
+        }
     };
 
     struct collision_checker_GIVEN_case_1 : public collision_checker_GIVEN_kinematic_chain
@@ -24,9 +30,7 @@ namespace kinematics
 
     TEST_F(collision_checker_GIVEN_case_1, WHEN_check_collisions_THEN_return_expected_collision)
     {
-        std::cout <<"before" << std::endl;
         auto res = _collision_checker.check_collisions(_chain);
-        std::cout <<"after" << std::endl;
         EXPECT_EQ(_expected_collision, res);
     }
 
@@ -37,7 +41,7 @@ namespace kinematics
 
         collision_checker_GIVEN_case_2()
         {
-            _chain.set_state(M_PI / 4, -M_PI / 2, -M_PI / 2, -M_PI / 2, 0.06);
+            _chain->set_state(M_PI / 4, -M_PI / 2, -M_PI / 2, -M_PI / 2, 0.06);
         }
     };
 
@@ -53,7 +57,7 @@ namespace kinematics
 
         collision_checker_GIVEN_case_3()
         {
-            _chain.set_state(-M_PI / 4, M_PI / 2, -3 * M_PI / 4, M_PI / 4, 0);
+            _chain->set_state(-M_PI / 4, M_PI / 2, -3 * M_PI / 4, M_PI / 4, 0);
         }
     };
 
@@ -69,7 +73,7 @@ namespace kinematics
 
         collision_checker_GIVEN_case_4()
         {
-            _chain.set_state(M_PI / 2, M_PI / 4, -M_PI / 6, 0, 0.05);
+            _chain->set_state(M_PI / 2, M_PI / 4, -M_PI / 6, 0, 0.05);
         }
     };
 
@@ -85,7 +89,7 @@ namespace kinematics
 
         collision_checker_GIVEN_case_5()
         {
-            _chain.set_state(-M_PI / 4, 40 * M_PI / 180, 140 * M_PI / 180, 0, 0.05);
+            _chain->set_state(-M_PI / 4, 40 * M_PI / 180, 140 * M_PI / 180, 0, 0.05);
         }
     };
 
