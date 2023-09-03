@@ -12,7 +12,9 @@
 
 ## Run with Docker
 - Prerequisite: Install Docker
+
 `sudo docker build -t forward_kinematics .`
+
 `sudo docker run --rm forward_kinematics`
 
 ![Components Diagram](./images/components_diagram.png)
