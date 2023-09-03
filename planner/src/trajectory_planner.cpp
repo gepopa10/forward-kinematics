@@ -42,8 +42,6 @@ namespace planner
             max_time = std::max(max_time, _travel_time_finder.compute_time_of_travel_secs(start_pos, end_pos, max_vel, max_acc));
         }
 
-        std::cout <<"max_time: " << max_time << std::endl;
-
         std::vector<std::vector<kinematics::dynamic_joint_state>> trajectory;
 
         size_t total_steps = static_cast<size_t>(std::ceil(max_time * frequency));

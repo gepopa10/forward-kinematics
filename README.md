@@ -1,6 +1,6 @@
 # forward-kinematics
 
-![Diagram](./diagram.png)
+![Diagram](./images/diagram.png)
 
 ## To build
 
@@ -10,4 +10,4 @@
 ## Run tests
 `ctest`
 
-![Components Diagram](./components_diagram.png)
+![Components Diagram](./images/components_diagram.png)
