@@ -29,6 +29,11 @@ namespace planner
             throw std::invalid_argument("start joint size of: " + std::to_string(start.size()) + " does not match chain nb of joints: " + std::to_string(_chain->get_nb_joints()));
         }
 
+        if (frequency <=0)
+        {
+            throw std::invalid_argument("frequency of: " + std::to_string(frequency) + " is invalid");
+        }
+
         double max_time = 0;
 
         const size_t nb_joints = start.size();

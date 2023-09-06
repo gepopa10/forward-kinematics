@@ -29,6 +29,7 @@ namespace planner
             _trajectory_planner = std::make_unique<trajectory_planner>(_travel_time_finder_mock,
                                                                        _collision_checker_mock,
                                                                        _kinematic_chain_mock);
+            ON_CALL(*_kinematic_chain_mock, get_nb_joints()).WillByDefault(Return(1));
         }
     };
 
@@ -59,6 +60,18 @@ namespace planner
     TEST_F(GIVEN_start_and_chain_joint_size_mismatch, WHEN_plan_THEN_throw_invalid_argument)
     {
         EXPECT_THROW(_trajectory_planner->plan(_start, _end, _freq), std::invalid_argument);
+    }
+
+    struct GIVEN_invalid_frequency : public GIVEN_start_and_end_joint_size_mismatch
+    {
+    protected:
+        std::vector<kinematics::dynamic_joint_state> _end = _start;
+        const int frequency = 0;
+    };
+
+    TEST_F(GIVEN_invalid_frequency, WHEN_plan_THEN_throw_invalid_argument)
+    {
+        EXPECT_THROW(_trajectory_planner->plan(_start, _end, frequency), std::invalid_argument);
     }
 
 } // namespace planner
